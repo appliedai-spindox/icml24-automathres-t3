@@ -1,0 +1,42 @@
+[
+  {
+    "id": 194,
+    "question": "Euing Gas produces two types of gasoline (gas 1 and gas 2) from two types of oil (oil 1 and oil 2). Each gallon of gas 1 must contain at least 50 percent oil 1, and each gallon of gas 2 must contain at least 60 percent oil 1. Each gallon of gas 1 can be sold for $12, and each gallon of gas 2 can be sold for $14. Currently, 500 gallons of oil 1 and 1,000 gallons of oil 2 are available. As many as 1,500 more gallons of oil 1 can be purchased at the prices shown in the following Table. Maximize Euing's profits (revenues - purchasing costs).\n\nTable (Purchasing prices for additional gallons of oil 1):\n| Additional Gallons of Oil 1 | Price per Gallon |\n| --------------------------- | ---------------- |\n| First 500                   | $25              |\n| Next 500                    | $20              |\n| Next 500                    | $15              |",
+    "results": {
+      "The amount of oil 1 purchased": "",
+      "The amount of oil 1 used to produce gas 1": "",
+      "The amount of oil 1 used to produce gas 2": "",
+      "The amount of oil 2 used to produce gas 1": "",
+      "The amount of oil 2 used to produce gas 2": "",
+      "The maximum profit": ""
+    }
+  },
+  {
+    "id": 268,
+    "question": "Maple Oil processes three types of crude oil: light oil, non-sticky oil and heavy oil. Each tank of light oil produces a net revenue of $550, each tank of non-sticky oil produces a net revenue of $750, and each tank of heavy oil produces a net revenue of $950. To process a tank of light oil, 3 units of compound A and 3 units of compound B are required. To process a tank of non-sticky oil, 6 units of compound A and 2 units of compound B are required. To process a tank of heavy oil, 9 units of compound A and 3 units of compound B are required. Currently the company has 250 units of compound A and 150 units of compound B to process. How many full or partial tanks of each oil should the company process so that net revenue is maximized?",
+    "results": {
+      "The amount of light oil": "",
+      "The amount of non-sticky oil": "",
+      "The amount of heavy oil": "",
+      "The net revenue is": ""
+    }
+  },
+  {
+    "id": 317,
+    "question": "An oil and gas company is sending their oil to the port using containers and trucks. A container can hold 30 units of oil while a truck can hold 40 units of oil. Due to government restrictions, the number of trucks used has to at most half the number of containers used. If at least 2000 units of oil need to be sent to the port and at least 15 containers need to be used, minimize the total number of containers and trucks needed.",
+    "results": {
+      "The number of containers": "",
+      "The number of trucks": "",
+      "The total number of containers and trucks": ""
+    }
+  },
+  {
+    "id": 367,
+    "question": "Glueco produces three types of glue on two different production lines. Each line can be utilized by up to seven workers at a time. Workers are paid $500 per week on production line 1, and $900 per week on production line 2. A week of production costs $1,000 to set up production line 1 and $2,000 to set up production line 2. During a week on a production line, each worker produces the number of units of glue shown in Table: Glue Production Line 1, 2; the glue 1, 2, 3: (20, 30, 40), (50, 35, 45). Each week, at least 120 units of glue 1, at least 150 units of glue 2, and at least 200 units of glue 3 must be produced. Minimize the total cost of meeting weekly demands.",
+    "results": {
+      "The number of workers on production line 1": "",
+      "The number of workers on production line 2": "",
+      "The total cost": ""
+    }
+  }
+]

@@ -1,3 +1,4 @@
 .venv
-data/params/secret.yaml
 .idea
+data/params/secret.yaml
+*/__pycache__

@@ -1,4 +1,4 @@
-# GitHub Repository Used for the "ICML 2024 Challenges on Automated Math Reasoning - Track 3: Automated Optimization Problem-Solving with Code" by AppliedAI (Spindox)
+# Applied AI (Spindox) code used for the "ICML 2024 Challenges on Automated Math Reasoning - Track 3: Automated Optimization Problem-Solving with Code"
 
 ## Introduction
 
@@ -112,6 +112,51 @@ python3 main.py input_file_path output_majority_file_path output_llm_file_path
 -   `solution_manager.py`: Manages the solutions found by LLMs, performing majority and LLM voting.
 -   `text_similarity.py`: Computes the similarity between a given problem and the problems inside the train dataset.
 -   `utils.py`: Utility functions for file management and output parsing.
+
+```mermaid
+graph LR
+    subgraph OuterBox [ ]
+        style OuterBox fill:#ffffff,stroke:#333,stroke-width:2px
+        input[parameters.yaml<br>secret.yaml<br>input_file_path<br>output_majority_file_path<br>output_llm_file_path]
+        style input fill:#E0FFE0,stroke:#333,stroke-width:1px
+        majority_voting[Majority Voting]
+        style majority_voting fill:#FFE0E0,stroke:#333,stroke-width:1px
+        llm_voting[LLM Voting]
+        style llm_voting fill:#FFE0E0,stroke:#333,stroke-width:1px
+        subgraph InnerBox [Pipeline]
+            style InnerBox fill:#ddf3fe,stroke:#666,stroke-width:2px,padding:10px
+            prompt_selection[Prompt Selection]
+            style prompt_selection fill:#FFFFE0,stroke:#333,stroke-width:1px
+            subgraph ForEachItem ["For Each Item"]
+                style ForEachItem fill:#E0E0FF,stroke:#333,stroke-width:1px
+                subgraph ForEachTempSample ["For Each Temperature and Sample"]
+                    style ForEachTempSample fill:#e0e0e0,stroke:#333,stroke-width:1px
+                    code_generation[Code Generation]
+                    style code_generation fill:#FFFFE0,stroke:#333,stroke-width:1px
+                    code_execution[Code Execution]
+                    style code_execution fill:#FFFFE0,stroke:#333,stroke-width:1px
+                    code_correction[Code Correction]
+                    style code_correction fill:#FFFFE0,stroke:#333,stroke-width:1px
+                    solution[Solution]
+                    style solution fill:#FFFFE0,stroke:#333,stroke-width:1px
+                    
+                    code_generation --> code_execution
+                    code_execution -- KO --> code_correction
+                    code_correction --> code_execution
+                    code_execution -- OK --> solution
+                end
+                solution_manager[Solution Manager]
+                style solution_manager fill:#FFFFE0,stroke:#333,stroke-width:1px
+                solution --> solution_manager
+            end
+            
+            prompt_selection -- prompt --> ForEachItem
+        end
+        input --> InnerBox 
+    end
+    solution_manager --> majority_voting
+    solution_manager --> llm_voting
+```
 
 ## Fine-Tuning
 

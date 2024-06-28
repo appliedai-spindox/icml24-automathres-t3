@@ -1,5 +1,6 @@
 import json
 from collections import Counter
+
 from challenge import llm
 from challenge.prompts import get_get_optimal_solution_prompt, get_check_optimal_solution_prompt
 from challenge.utils import extract_code_from_result
@@ -75,22 +76,35 @@ def get_best_solution_by_llm(question: str, solutions: list[dict]) -> dict:
     prompt, data = get_get_optimal_solution_prompt(solutions, gpt_answer)
     results_raw = llm.call_llm(prompt, data)
 
+    json_raw = extract_code_from_result(
+        results_raw,
+        language="json"
+    )
+
+    print(f"Solution found by LLM voting: {json_raw}")
+
     return json.loads(
-        extract_code_from_result(
-            results_raw,
-            language="json"
-        )
+        json_raw
     )
 
 
 def get_best_solution_as_result(solution_freq: dict, keys: list, question: str) -> (dict, dict):
 
-    best_majority_tuple = max(solution_freq, key=solution_freq.get)
+    best_majority_result = from_tuple_to_result(
+        max(solution_freq, key=solution_freq.get),
+        keys
+    )
+
+    if len(solution_freq) == 1:
+        return best_majority_result, best_majority_result
 
     best_llm_result = get_best_solution_by_llm(
         question,
         [from_tuple_to_result(tupl3, keys) for tupl3 in solution_freq.keys()]
     )
 
+    for key in keys:
+        if key not in best_llm_result:
+            return best_majority_result, best_majority_result
 
-    return from_tuple_to_result(best_majority_tuple, keys), best_llm_result
+    return best_majority_result, best_llm_result

@@ -1,19 +1,11 @@
 similarity: false
 similarity-threshold: 0.7
-train_data_path: "data/input/task3_train_public.json"
+train-data-path: "data/input/task3_train_public.json"
 static-example: false
-#temperatures:
-#  - 0.0
-#  - 0.4
-#  - 0.8
-#  - 1.2
-#  - 1.6
-#  - 2.0
 temperatures:
   - 0.0
   - 0.8
   - 2.0
 temp-coeff: 2.0
-#python-command: "../venv_new/Scripts/python"
 python-command: "./.venv/bin/python"
 feedback-length: 5

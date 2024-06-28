@@ -37,47 +37,48 @@ def process_item(item: dict, text_similarity: TextSimilarity) -> (dict, dict):
 
     prompt, data = get_prompt(item, text_similarity)
 
-    print(f"item {item['id']}")
+    print(f"Processing item {item['id']}")
+
+    result_keys = list(item['results'].keys())
 
     solutions = {}
     for temperature in params['temperatures']:
         for it in range(1 + math.floor(temperature * params['temp-coeff'])):
 
-            print(f"{temperature}-{it}")
+            print(f"\tRun with temp. {temperature}, iteration {it}")
 
             code = get_code_from_llm(prompt, data, temperature=temperature)
             results_raw = execute_code_with_feedback(code)
 
-            result = get_empty_result(item)
+            result = get_empty_result(result_keys)
             try:
                  result = json.loads(results_raw)
             except Exception as e:
-                print(f"{temperature}-{it} discarded due to errors: ", e)
+                print(f"\tRun with temp. {temperature}, iteration {it} discarded due to errors: ", e)
 
             solutions[f"{temperature}-{it}"] = result
 
-    result_keys = list(item['results'].keys())
+
 
     solution_freq = get_solution_count_dict(solutions, result_keys)
 
-    print("#########################")
-    print(solution_freq)
-    print("#########################")
+    print(f"solutions and frequency: {solution_freq}")
 
     best_result_majority, best_result_llm = get_best_solution_as_result(solution_freq, result_keys, item['question'])
 
     return best_result_majority, best_result_llm
 
 
-def process_data(test_data: list[dict]) -> (list[dict], list[dict]):
+def process_data(test_data: list[dict], args: dict) -> (list[dict], list[dict]):
 
     text_similarity = None
     if params['similarity']:
-        train_data = read_json(params['train_data_path'])
+        train_data = read_json(params['train-data-path'])
         text_similarity = TextSimilarity(train_data, test_data)
 
     output_majority = []
     output_llm = []
+
     for item in test_data:
 
         best_result_majority, best_result_llm = process_item(item, text_similarity)
@@ -97,13 +98,16 @@ def process_data(test_data: list[dict]) -> (list[dict], list[dict]):
         output_majority.append(item_majority)
         output_llm.append(item_llm)
 
+        write_json(output_majority, args['output_majority_file_path'])
+        write_json(output_llm, args['output_llm_file_path'])
+
     return output_majority, output_llm
 
 
 def main():
     args = read_args()
     test_data = read_json(args['input_file_path'])
-    output_majority, output_llm = process_data(test_data)
+    output_majority, output_llm = process_data(test_data, args)
     write_json(output_majority, args['output_majority_file_path'])
     write_json(output_llm, args['output_llm_file_path'])
 

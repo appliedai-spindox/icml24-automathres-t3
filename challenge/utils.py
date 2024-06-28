@@ -1,5 +1,6 @@
 import json
 import sys
+
 import yaml
 
 
@@ -31,7 +32,7 @@ def write_json(data: list[dict], file_path: str):
         json.dump(data, file)
 
 
-def extract_code_from_result(result, language: str = "python"):
+def extract_code_from_result(result, language: str = "python") -> str:
     if not f"```{language}" in result:
         return result
     start_index = result.find(f"```{language}") + len(f"```{language}")
@@ -39,5 +40,5 @@ def extract_code_from_result(result, language: str = "python"):
     return result[start_index:end_index]
 
 
-def get_empty_result(item: dict) -> dict:
-    return {key: "0" for key in item['results'].keys()}
+def get_empty_result(result_keys: list) -> dict:
+    return {key: "0" for key in result_keys}

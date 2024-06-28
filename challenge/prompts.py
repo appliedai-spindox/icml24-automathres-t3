@@ -132,6 +132,7 @@ Don't change neither a word in the final prints as they are the results I'm inte
 
     "check_optimal_solution_prompt": '''You are an expert in Operations Research, Python programming language and you are also proficient in JSON file format. 
 I have the description of an optimization problem and a set of different solutions, and I need you to establish which solution is the best one.
+Please also verify the feasibility of every constraint taking into account also the nature of the variables (continuous, integer or binary) and discard the infeasible solutions.
 
 Here is the problem description:
 
@@ -155,7 +156,7 @@ Here is the gpt's answer: (beginning of gpt's answer)
 {gpt_answer}
 (end of gpt's answer)
 
-Please write only the optimal solution determined by gpt (in the original format) in JSON format inside a JSON Markdown block."""
+Please write only the optimal solution determined by gpt (in the original format) in JSON format inside a JSON Markdown block. Remember that the JSON format requires double quotes to enclose keys and values"""
 
 }
 
